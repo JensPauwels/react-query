@@ -17,7 +17,6 @@ To get started with the project, follow these steps:
 
 ```
 git clone https://github.com/JensPauwels/react-query.git
-
 ```
 2. Install the necessary dependencies by running `yarn install` in the project directory.
 
