@@ -8,6 +8,7 @@ import Todo from '../models/Todo';
 import todoStore from '../../stores/todoStore';
 
 import styles from '../../assets/styles/todos.module.scss';
+import { QUERIES } from '../../constants';
 
 const schema = z.object({
   content: z.string().min(1, { message: 'Required' }),
@@ -30,7 +31,7 @@ const AddTodo = () => {
     },
     onSuccess: () => {
       reset(new Todo());
-      queryClient.invalidateQueries({ queryKey: ['categories', categoryID] });
+      queryClient.invalidateQueries({ queryKey: [QUERIES.CATEGORIES, categoryID] });
     }
   });
 

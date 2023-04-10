@@ -2,13 +2,14 @@ import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import Category from './components/models/Category';
 import type Todo from './components/models/Todo';
+import { QUERIES } from './constants';
 import categoryStore from './stores/categoryStore';
 import todoStore from './stores/todoStore';
 import { getToken } from './utils';
 
 export const useCategories = () => {
   const { isLoading, isError, error, data } = useQuery<Category[]>({
-    queryKey: ['categories'],
+    queryKey: [QUERIES.CATEGORIES],
     queryFn: categoryStore.getCategories,
   });
 
@@ -22,26 +23,12 @@ export const useCategories = () => {
 
 export const useCategoryByID = (categoryID: string) => {
   const { isLoading, isError, error, data } = useQuery<Category>({
-    queryKey: ['categories', categoryID],
+    queryKey: [QUERIES.CATEGORIES, categoryID],
     queryFn: () => categoryStore.getCategoryByID(categoryID),
   });
 
   return {
     category: data,
-    isLoading,
-    isError,
-    error,
-  };
-};
-
-export const useTodos = () => {
-  const { isLoading, isError, error, data } = useQuery<Todo[]>({
-    queryKey: ['todos'],
-    queryFn: todoStore.getTodos,
-  });
-
-  return {
-    todos: data ?? [],
     isLoading,
     isError,
     error,

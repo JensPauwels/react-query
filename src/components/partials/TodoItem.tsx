@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 
 import Todo from '../models/Todo';
 import { Checkbox } from '../elements/';
+import { QUERIES } from '../../constants';
 
 import styles from '../../assets/styles/todos.module.scss';
 import todoStore from '../../stores/todoStore';
@@ -21,7 +22,7 @@ const TodoItem = ({ todo }: TodoProps) => {
   const toggle = async () => {
     await todoStore.updateTodo(todo);
     setValue('checked', todo.checked);
-    queryClient.invalidateQueries({ queryKey: ['categories', todo.categoryID] });
+    queryClient.invalidateQueries({ queryKey: [QUERIES.CATEGORIES, todo.categoryID] });
   };
 
   return (
