@@ -33,8 +33,3 @@ yarn dev
 
 4. Open your browser and navigate to `http://localhost:5173` to see the application running.
 
-## Future Plans
-
-In the future, I plan to connect the frontend to a GraphQL backend to allow for more advanced functionality and better performance.
-
-
