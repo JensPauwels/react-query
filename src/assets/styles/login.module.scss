@@ -1,0 +1,32 @@
+@import './colors.scss';
+
+.loginContainer {
+  background-color: $background-item;
+  padding: 2rem;
+  border-radius: 10px;
+
+  button {
+    margin-top: 2rem;
+    background-color: $background;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: $hover-background;
+    }
+  }
+
+  strong {
+    text-align: center;
+    width: 100%;
+    display: block;
+    margin-top: 2rem;
+    font-size: 1.6rem;
+    color: #83a2ff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      color: $hover-background;
+    }
+  }
+}

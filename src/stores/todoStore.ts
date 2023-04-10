@@ -1,34 +1,34 @@
-import { v4 as uuidv4 } from 'uuid';
-import Todo from '../components/models/Todo';
+import Todo, { ITodo } from '../components/models/Todo';
+import { doFetch } from '../utils';
 
-// TodoStore represents a fake todo store.
 class TodoStore {
-  todos: Todo[];
+  getTodos = async (): Promise<Todo[]> => {
+    const { data } = await doFetch('/api/graphql', 'POST', {
+      query: '{todos {id, authorID,content,checked}}'
+    });
 
-  constructor() {
-    this.todos = [
-      new Todo({ id: uuidv4(), content: 'First note', checked: false }),
-      new Todo({ id: uuidv4(), content: 'Second note', checked: true }),
-      new Todo({ id: uuidv4(), content: 'Third note', checked: true }),
-      new Todo({ id: uuidv4(), content: 'Fourth note', checked: true }),
-      new Todo({ id: uuidv4(), content: 'Fifth note', checked: true }),
-    ];
-  }
-
-  addTodo = (todo: Todo) => {
-    this.todos.push(todo);
+    return data.data.todos.map((todo: ITodo) => new Todo(todo));
   };
 
-  updateTodo = (todo: Todo) => {
+  addTodo = async (todo: Todo) => {
+    await doFetch('/api/graphql', 'POST', {
+      query: `mutation{
+        addTodo(id: "${todo.id}", checked: ${todo.checked}, content: "${todo.content}", category_id: "${todo.categoryID}") {
+          id
+        }
+      }`
+    });
+  };
+
+  updateTodo = async (todo: Todo) => {
     todo.checked = !todo.checked;
 
-    // it is important to create a new object pointer, otherwise the custom hook won't re-render..
-    this.todos = this.todos.map((t: Todo) => {
-      if (t.id !== todo.id) {
-        return t;
-      }
-
-      return new Todo(todo.toJSON());
+    await doFetch('/api/graphql', 'POST', {
+      query: `mutation{
+        updateTodo(id: "${todo.id}", checked: ${todo.checked}, content: "${todo.content}") {
+          id
+        }
+      }`
     });
   };
 }

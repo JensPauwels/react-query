@@ -2,24 +2,25 @@ import { useMemo } from 'react';
 import { TodoItem } from '../partials';
 
 import styles from '../../assets/styles/todos.module.scss';
-import { useTodos } from '../../hooks';
+import { useCategoryByID } from '../../hooks';
 
 type TodosProps = {
   filter: string;
+  categoryID: string;
 }
 
-const Todos = ({ filter }: TodosProps) => {
-  const { isLoading, isError, error, todos } = useTodos();
+const Todos = ({ filter, categoryID }: TodosProps) => {
+  const { isLoading, isError, error, category } = useCategoryByID(categoryID);
 
   const filteredTodos = useMemo(() => {
-    if (todos === undefined) {
+    if (category === undefined) {
       return [];
     }
 
-    return todos.filter(todo => {
+    return category.todos.filter(todo => {
       return todo.content.toLowerCase().includes(filter.toLowerCase());
     });
-  }, [filter, todos]);
+  }, [filter, category]);
 
   if (isLoading) {
     return (

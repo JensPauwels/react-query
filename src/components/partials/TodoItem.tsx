@@ -7,9 +7,8 @@ import { Checkbox } from '../elements/';
 import styles from '../../assets/styles/todos.module.scss';
 import todoStore from '../../stores/todoStore';
 
-
 type TodoProps = {
-  todo: Todo
+  todo: Todo;
 };
 
 const TodoItem = ({ todo }: TodoProps) => {
@@ -19,10 +18,10 @@ const TodoItem = ({ todo }: TodoProps) => {
     defaultValues: todo,
   });
 
-  const toggle = () => {
-    todoStore.updateTodo(todo);
-    queryClient.invalidateQueries({ queryKey: ['todos'] });
+  const toggle = async () => {
+    await todoStore.updateTodo(todo);
     setValue('checked', todo.checked);
+    queryClient.invalidateQueries({ queryKey: ['categories', todo.categoryID] });
   };
 
   return (

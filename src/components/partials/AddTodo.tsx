@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
+import { useParams } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 
@@ -14,6 +15,7 @@ const schema = z.object({
 
 const AddTodo = () => {
   const queryClient = useQueryClient();
+  const { categoryID } = useParams();
 
   const { register, handleSubmit, reset, getValues, formState: { errors } } = useForm<Todo>({ 
     resolver: zodResolver(schema),
@@ -22,11 +24,13 @@ const AddTodo = () => {
 
   const { mutate } = useMutation({
     mutationFn: async () => {
-      todoStore.addTodo(new Todo(getValues()));
+      const todo = new Todo(getValues());
+      todo.categoryID = categoryID ?? '';
+      await todoStore.addTodo(todo);
     },
     onSuccess: () => {
       reset(new Todo());
-      queryClient.invalidateQueries({ queryKey: ['todos'] });
+      queryClient.invalidateQueries({ queryKey: ['categories', categoryID] });
     }
   });
 
