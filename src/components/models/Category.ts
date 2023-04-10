@@ -23,6 +23,15 @@ class Category {
       category_id: this.id,
     })) ?? [];
   }
+
+  toJSON = (): ICategory => {
+    return {
+      id: this.id,
+      author_id: this.authorID,
+      name: this.name,
+      todos: this.todos.map(todo => todo.toJSON()),
+    };
+  };
 }
 
 export default Category;

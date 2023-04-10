@@ -7,6 +7,7 @@ import { QUERIES } from '../../constants';
 
 import styles from '../../assets/styles/todos.module.scss';
 import todoStore from '../../stores/todoStore';
+import Category from '../models/Category';
 
 type TodoProps = {
   todo: Todo;
@@ -22,7 +23,14 @@ const TodoItem = ({ todo }: TodoProps) => {
   const toggle = async () => {
     await todoStore.updateTodo(todo);
     setValue('checked', todo.checked);
-    queryClient.invalidateQueries({ queryKey: [QUERIES.CATEGORIES, todo.categoryID] });
+
+    queryClient.setQueryData([QUERIES.CATEGORIES, todo.categoryID], (category: Category | undefined) => {
+      if (category !== undefined) {
+        return new Category(category.toJSON());
+      }
+
+      return category;
+    });
   };
 
   return (
