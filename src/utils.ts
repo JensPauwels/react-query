@@ -26,6 +26,26 @@ export const getToken = (): Token | undefined => {
 };
 
 
+export const execGraphQL = async (data?: any): Promise<{status: number, data: any}>  => {
+  const response = await fetch('/api/graphql', {
+    method: 'POST',
+    mode: 'same-origin', // no-cors, *cors, same-origin
+    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+    credentials: 'same-origin', // include, *same-origin, omit
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data),
+  });
+
+  const parseData = await response.json();
+
+  return {
+    status: response.status,
+    data: parseData,
+  };
+};
+
 export const doFetch = async (url: string, method: string, data?: any): Promise<{status: number, data: any}>  => {
   const response = await fetch(url, {
     method: method, // *GET, POST, PUT, DELETE, etc.

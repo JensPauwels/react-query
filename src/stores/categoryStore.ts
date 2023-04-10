@@ -1,9 +1,9 @@
 import Category, { ICategory } from '../components/models/Category';
-import { doFetch } from '../utils';
+import { execGraphQL } from '../utils';
 
 class CategoryStore {
   getCategories = async (): Promise<Category[]> => {
-    const { data } = await doFetch('/api/graphql', 'POST', {
+    const { data } = await execGraphQL({
       query: '{categories {id, name }}'
     });
 
@@ -11,7 +11,7 @@ class CategoryStore {
   };
 
   getCategoryByID = async (categoryID: string): Promise<Category> => {
-    const { data } = await doFetch('/api/graphql', 'POST', {
+    const { data } = await execGraphQL({
       query: `
         {
           categoryByID(id: "${categoryID}") {
@@ -32,7 +32,7 @@ class CategoryStore {
   };
 
   addCategory = async (category: Category) => {
-    await doFetch('/api/graphql', 'POST', {
+    await execGraphQL({
       query: `mutation{
         addCategory(id: "${category.id}", name: ${category.name}) {
           id
@@ -42,7 +42,7 @@ class CategoryStore {
   };
 
   updateCategory = async (category: Category) => {
-    await doFetch('/api/graphql', 'POST', {
+    await execGraphQL({
       query: `mutation{
         updateCategory(id: "${category.id}", name: ${category.name}) {
           id

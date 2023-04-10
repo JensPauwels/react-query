@@ -1,9 +1,9 @@
 import Todo, { ITodo } from '../components/models/Todo';
-import { doFetch } from '../utils';
+import { execGraphQL } from '../utils';
 
 class TodoStore {
   getTodos = async (): Promise<Todo[]> => {
-    const { data } = await doFetch('/api/graphql', 'POST', {
+    const { data } = await execGraphQL({
       query: '{todos {id, authorID,content,checked}}'
     });
 
@@ -11,7 +11,7 @@ class TodoStore {
   };
 
   addTodo = async (todo: Todo) => {
-    await doFetch('/api/graphql', 'POST', {
+    await execGraphQL({
       query: `mutation{
         addTodo(id: "${todo.id}", checked: ${todo.checked}, content: "${todo.content}", category_id: "${todo.categoryID}") {
           id
@@ -23,7 +23,7 @@ class TodoStore {
   updateTodo = async (todo: Todo) => {
     todo.checked = !todo.checked;
 
-    await doFetch('/api/graphql', 'POST', {
+    await execGraphQL({
       query: `mutation{
         updateTodo(id: "${todo.id}", checked: ${todo.checked}, content: "${todo.content}") {
           id
