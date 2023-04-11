@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 
 import Todo from '../models/Todo';
-import todoStore from '../../stores/todoStore';
+import { addTodo } from '../../queries/todoQueries';
 
 import styles from '../../assets/styles/todos.module.scss';
 import { QUERIES } from '../../constants';
@@ -27,7 +27,7 @@ const AddTodo = () => {
     mutationFn: async () => {
       const todo = new Todo(getValues());
       todo.categoryID = categoryID ?? '';
-      await todoStore.addTodo(todo);
+      await addTodo(todo);
     },
     onSuccess: () => {
       reset(new Todo());

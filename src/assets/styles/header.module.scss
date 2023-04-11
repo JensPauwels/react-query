@@ -1,0 +1,19 @@
+.header {
+  padding: 3rem;
+  position: relative;
+
+  .logout {
+    position: absolute;
+    cursor: pointer;
+    right: 4rem;
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    gap: 1rem;
+    user-select: none;
+
+    &:hover {
+      color: #3d485c;
+    }
+  }
+}

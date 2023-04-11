@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 
 import Admin from '../models/Admin';
-import globalStore from '../../stores/globalStore';
+import { doFetch } from '../../utils';
 
 import styles from '../../assets/styles/login.module.scss';
 
@@ -15,22 +15,21 @@ const schema = z.object({
 });
 
 const LoginForm = () => {
-  const { admin } = globalStore;
   const navigate = useNavigate();
 
-  const { register, handleSubmit, formState: { errors } } = useForm<Admin>({ 
+  const { register, handleSubmit, getValues, formState: { errors } } = useForm<Admin>({ 
     resolver: zodResolver(schema),
-    defaultValues: admin,
+    defaultValues: new Admin(),
   });
 
   const { mutate, isLoading } = useMutation({
-    mutationFn: globalStore.login,
+    mutationFn: () => doFetch('api/auth/login', 'POST', getValues()),
     onSuccess: () => {
       navigate('/');
     }
   });
 
-  const onSubmit = handleSubmit(async () => {
+  const onSubmit = handleSubmit(() => {
     mutate();
   });
 

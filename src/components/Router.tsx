@@ -1,7 +1,7 @@
 import { Suspense, lazy, useEffect } from 'react';
 import { Routes, Route, BrowserRouter, Navigate, useNavigate } from 'react-router-dom';
 import { useToken } from '../hooks';
-import { Loading } from './partials';
+import { Loading, Header } from './partials';
 
 const TodoOverview = lazy(() => import('./pages/TodoOverview'));
 const CategoryOverview = lazy(() => import('./pages/CategoryOverview'));
@@ -28,6 +28,7 @@ const Router = () => {
   return (
     <BrowserRouter>
       <Suspense fallback={<Loading />}>
+        <Header />
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<PrivateRoute element={<PrivateRoute element={<CategoryOverview />} />} />} />

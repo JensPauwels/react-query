@@ -1,16 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import Category from './components/models/Category';
-import type Todo from './components/models/Todo';
 import { QUERIES } from './constants';
-import categoryStore from './stores/categoryStore';
-import todoStore from './stores/todoStore';
+import { getCategories, getCategoryByID } from './queries/categoryQueries';
 import { getToken } from './utils';
 
 export const useCategories = () => {
   const { isLoading, isError, error, data } = useQuery<Category[]>({
     queryKey: [QUERIES.CATEGORIES],
-    queryFn: categoryStore.getCategories,
+    queryFn: getCategories,
   });
 
   return {
@@ -24,7 +22,7 @@ export const useCategories = () => {
 export const useCategoryByID = (categoryID: string) => {
   const { isLoading, isError, error, data } = useQuery<Category>({
     queryKey: [QUERIES.CATEGORIES, categoryID],
-    queryFn: () => categoryStore.getCategoryByID(categoryID),
+    queryFn: () => getCategoryByID(categoryID),
   });
 
   return {
