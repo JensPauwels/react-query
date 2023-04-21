@@ -1,6 +1,6 @@
 # React Todo Application
 
-This project is a Todo application that uses React form hook, ZOD, React Query, and TypeScript. It allows users to create and manage a list of tasks to be completed.
+This project is a Todo application that uses React form hook, ZOD, Zustand, React Query, Rest, GraphQL, and TypeScript. It allows users to create and manage a list of tasks to be completed.
 
 ## Technologies Used
 
@@ -9,6 +9,7 @@ This project is a Todo application that uses React form hook, ZOD, React Query, 
 - [React Query](https://react-query.tanstack.com/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Zustand](https://github.com/pmndrs/zustand)
+- [GraphQL](https://graphql.org/)
 
 ## Getting Started
 
