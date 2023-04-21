@@ -60,6 +60,12 @@ button {
   height: 5rem;
   font-size: 1.6rem;
   border-radius: 5px;
+  text-align: center;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: $hover-background;
+  }
 }
 
 .goBack {

@@ -2,6 +2,7 @@ import Category from '../models/Category';
 
 import styles from '../../assets/styles/categories.module.scss';
 import { useNavigate } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
 
 type CategoryProps = {
   category: Category
@@ -17,6 +18,7 @@ const CategoryItem = ({ category }: CategoryProps) => {
   return (
     <li className={styles.category} onClick={goToCategory}>
       {category.name}
+      <ArrowRight />
     </li>
   );
 };

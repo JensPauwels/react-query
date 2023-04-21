@@ -10,6 +10,7 @@ import { updateTodo } from '../../queries/todoQueries';
 import Category from '../models/Category';
 
 import styles from '../../assets/styles/todos.module.scss';
+import useModalStore, { MODAL_TYPE } from '../../stores/modalStore';
 
 type TodoProps = {
   todo: Todo;
@@ -17,6 +18,7 @@ type TodoProps = {
 };
 
 const TodoItem = ({ todo, setSelectedTodo }: TodoProps) => {
+  const { open } = useModalStore();
   const queryClient = useQueryClient();
   const mounted = useRef(false);
 
@@ -53,6 +55,12 @@ const TodoItem = ({ todo, setSelectedTodo }: TodoProps) => {
 
   const openEditTodo = () => {
     setSelectedTodo(todo);
+    open(MODAL_TYPE.EDIT_TODO);
+  };
+
+  const openDeleteTodo = () => {
+    setSelectedTodo(todo);
+    open(MODAL_TYPE.DELETE_TODO);
   };
 
   return (
@@ -63,7 +71,7 @@ const TodoItem = ({ todo, setSelectedTodo }: TodoProps) => {
 
       <Checkbox control={control} name="checked" />
       <Edit onClick={openEditTodo} />
-      <Trash />
+      <Trash onClick={openDeleteTodo}/>
     </li>
   );
 };

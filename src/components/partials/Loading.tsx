@@ -1,5 +1,4 @@
 import { Puff } from  'react-loader-spinner';
-
 import styles from '../../assets/styles/loading.module.scss';
 
 const Loading = () => {
