@@ -4,6 +4,8 @@ import { ArrowLeft } from 'lucide-react';
 
 import { useCategoryByID } from '../../hooks';
 import { AddTodo, Todos, SearchBar } from '../partials/';
+import { EditTodo } from '../modals';
+import Todo from '../models/Todo';
 
 const Overview = () => {
   const { categoryID } = useParams();
@@ -11,6 +13,7 @@ const Overview = () => {
   const [ filter, setFilter ] = useState('');
   const { category, isLoading } = useCategoryByID(categoryID ?? '');
 
+  const [ selectedTodo, setSelectedTodo ] = useState<undefined | Todo>(undefined);
   const checkedTodos = category?.todos?.filter(t => t.checked) || [];
 
   const goBack = () => {
@@ -33,7 +36,15 @@ const Overview = () => {
       </div>
 
       <SearchBar filter={filter} setFilter={setFilter} />
-      <Todos filter={filter} categoryID={categoryID ?? ''} />
+      <Todos 
+        filter={filter} 
+        categoryID={categoryID ?? ''} 
+        setSelectedTodo={setSelectedTodo}
+      />
+      <EditTodo 
+        todo={selectedTodo} 
+        setSelectedTodo={setSelectedTodo}
+      />
       <AddTodo />
     </main>
   );

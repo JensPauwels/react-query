@@ -13,9 +13,10 @@ import styles from '../../assets/styles/todos.module.scss';
 
 type TodoProps = {
   todo: Todo;
+  setSelectedTodo: React.Dispatch<React.SetStateAction<Todo | undefined>>;
 };
 
-const TodoItem = ({ todo }: TodoProps) => {
+const TodoItem = ({ todo, setSelectedTodo }: TodoProps) => {
   const queryClient = useQueryClient();
   const mounted = useRef(false);
 
@@ -50,6 +51,10 @@ const TodoItem = ({ todo }: TodoProps) => {
 
   }, [watch('checked')]);
 
+  const openEditTodo = () => {
+    setSelectedTodo(todo);
+  };
+
   return (
     <li className={`${styles.todo} ${todo.checked ? styles.done : undefined}`}>
       <span>
@@ -57,7 +62,7 @@ const TodoItem = ({ todo }: TodoProps) => {
       </span>
 
       <Checkbox control={control} name="checked" />
-      <Edit />
+      <Edit onClick={openEditTodo} />
       <Trash />
     </li>
   );

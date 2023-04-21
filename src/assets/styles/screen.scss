@@ -1,5 +1,6 @@
 @import './reset.scss';
 @import './colors.scss';
+@import './toast.scss';
 
 html {
   font-size: 62.5%;
@@ -17,8 +18,8 @@ h1 {
   margin-top: 3rem;
 }
 
-main, header {
-  font-family: 'Open Sans', sans-serif;
+* {
+  font-family: 'Open Sans', sans-serif !important;
 }
 
 main {
@@ -43,7 +44,6 @@ input, button {
 }
 
 .inputError {
-  margin-top: 1rem;
   color: #ff8080;
 }
 
