@@ -8,6 +8,7 @@ This project is a Todo application that uses React form hook, ZOD, React Query, 
 - [ZOD](https://github.com/colinhacks/zod)
 - [React Query](https://react-query.tanstack.com/)
 - [TypeScript](https://www.typescriptlang.org/)
+- [Zustand](https://github.com/pmndrs/zustand)
 
 ## Getting Started
 
