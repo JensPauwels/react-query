@@ -6,12 +6,6 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 5173,
-    host: '0.0.0.0',
-    // hmr: {
-    //     host: 'userv2.bluecherry.local',
-    //     port: 3000,
-    //     protocol: 'wss'
-    //   }
+    host: '0.0.0.0'
   },
-
 });
